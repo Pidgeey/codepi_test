@@ -1,5 +1,10 @@
 # Codepi - Test
-Test application for codepi
+This application use:
+```
+Laravel 6
+VueJs 2
+Bootstrap
+```
 ## Deploy
 Install composer dependencies
 ```
