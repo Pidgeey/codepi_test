@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,37 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * Define basic route arguments patterns
+ */
+Route::pattern('id', '[0-9]+');
+
+/**
+ * Products routes
+ */
+Route::prefix('products')->group(function() {
+    Route::get('/get-list', 'ProductController@getProductsList');
+    Route::post('/update/{id}', 'ProductController@update');
+    Route::post('/create', 'ProductController@create');
+    Route::delete('/delete/{id}', 'ProductController@delete');
+    Route::post('/restore/{id}', 'ProductController@restore');
 });
+
+/**
+ * Categories routes
+ */
+Route::prefix('categories')->group(function() {
+    Route::get('/get-list', 'CategoryController@getCategories');
+    Route::post('/create', 'CategoryController@create');
+    Route::post('/update/{id}', 'CategoryController@update');
+    Route::delete('/delete/{id}', 'CategoryController@delete');
+});
+
+/**
+ * Characteristics routes
+ */
+Route::prefix('/characteristics')->group(function () {
+    Route::get('get', 'CharacteristicController@get');
+});
+
+
