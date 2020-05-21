@@ -21,6 +21,13 @@ class Characteristic extends Model
     protected $fillable = ['name'];
 
     /**
+     * Attributes to hidden
+     *
+     * @var string[]
+     */
+    protected $hidden = ['pivot'];
+
+    /**
      * Products relation
      *
      * @return BelongsToMany
