@@ -4,6 +4,15 @@
             <h2 class="col-4">Liste des catégories</h2>
             <button class="btn btn-success col-2" @click="$emit('template', 'CategoryCreate')">Créer une catégorie</button>
         </div>
+        <div v-if="errors !== null">
+            <ul>
+                <li v-for="(array, attribute) in errors" class="bg-danger">
+                    <ul>
+                        <li v-for="error in array">{{error}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         <div class="row">
             <ul class="col-12">
                 <li v-for="category in categories" :key="category.id" class="d-flex align-items-center row">
@@ -25,7 +34,8 @@
         data:() => ({
             categories: [],
             name: "",
-            edit: null
+            edit: null,
+            errors: null
         }),
         created(){
             this.getCategories()
@@ -36,7 +46,15 @@
                 axios.post('api/categories/update/' + vm.edit.id, {name: vm.name})
                 .then(() => {
                     alert('Catégorie modifié')
+                    vm.errors = null
                     vm.getCategories()
+                })
+                .catch((error) => {
+                    if (error.response.status === 422) {
+                        vm.errors = error.response.data.errors;
+                    } else {
+                        vm.errors.push({error: ["An error has occurred"]})
+                    }
                 })
             },
             getCategories(){
