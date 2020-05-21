@@ -83,7 +83,7 @@ class InitializeProducts extends Migration
 
             // Products
             $product1 = Product::create(['name' => 'Maillot de corps']);
-            $product1->categories()->attach([$shirts->id, $winterSeason->id, $summerSeason->id]);
+            $product1->categories()->attach([$tshirts->id, $winterSeason->id, $summerSeason->id]);
             foreach([$whiteColor, $greenColor, $slimFit, $shortSleeves] as $characteristic) {
                 $product1->characteristics()->attach($characteristic->id);
             }

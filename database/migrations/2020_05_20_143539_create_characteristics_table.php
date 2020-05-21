@@ -20,7 +20,6 @@ class CreateCharacteristicsTable extends Migration
         Schema::create('characteristics', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 80);
-            $table->softDeletes();
             $table->timestamps();
         });
     }
